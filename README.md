@@ -1,8 +1,6 @@
 # try-gae-go
 
-## commands
-
-### run
+## run
 
 ```
 % goapp serve
