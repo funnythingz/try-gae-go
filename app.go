@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/zenazn/goji"
-	"github.com/zenazn/goji/web"
+	"goji.io"
+	"goji.io/pat"
+	"golang.org/x/net/context"
 )
 
 func init() {
@@ -15,14 +16,14 @@ func init() {
 	goji.Get("/unko", unko)
 }
 
-func index(w http.ResponseWriter, r *http.Request) {
+func index(c context.Context, w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "index page")
 }
 
-func hello(c web.C, w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, %s!", c.URLParams["name"])
+func hello(c context.Context, w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello, %s!", pat.Param(c, "name"))
 }
 
-func unko(c web.C, w http.ResponseWriter, r *http.Request) {
+func unko(c context.Context, w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "unko")
 }
