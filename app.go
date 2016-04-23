@@ -9,14 +9,14 @@ import (
 	"golang.org/x/net/context"
 )
 
-func main() {
+func init() {
 	mux := goji.NewMux()
 
 	mux.HandleFuncC(pat.Get("/"), index)
 	mux.HandleFuncC(pat.Get("/hello/:name"), hello)
 	mux.HandleFuncC(pat.Get("/unko"), unko)
 
-	http.ListenAndServe("localhost:8000", mux)
+	http.ListenAndServe(":8080", mux)
 }
 
 func index(c context.Context, w http.ResponseWriter, r *http.Request) {
