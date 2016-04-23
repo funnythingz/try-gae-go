@@ -9,11 +9,14 @@ import (
 	"golang.org/x/net/context"
 )
 
-func init() {
-	http.Handle("/", goji.DefaultMux)
-	goji.Get("/", index)
-	goji.Get("/hello/:name", hello)
-	goji.Get("/unko", unko)
+func main() {
+	mux := goji.NewMux()
+
+	mux.HandleFuncC(pat.Get("/"), index)
+	mux.HandleFuncC(pat.Get("/hello/:name"), hello)
+	mux.HandleFuncC(pat.Get("/unko"), unko)
+
+	http.ListenAndServe("localhost:8000", mux)
 }
 
 func index(c context.Context, w http.ResponseWriter, r *http.Request) {
